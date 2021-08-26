@@ -1,0 +1,50 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+http://www.liquibase.org/xml/ns/dbchangelog
+http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+
+    <changeSet author="IVladyka" id="default-init">
+        <preConditions onFail="WARN">
+            <dbms type="mysql"/>
+            <!--      <changeSetExecuted id="1" author="IVladyka" changeLogFile="db/changelog/liquibase-changeLog.xml" />-->
+
+        </preConditions>
+        <createTable tableName="users">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="phone_number" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="code_id" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="requisitionsList" type="VARCHAR(255)">
+                <!--          <constraints nullable="false"/>-->
+            </column>
+        </createTable>
+        <createTable tableName="SmsCode">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="code" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="createdAt" type="datetime"/>
+            <column name="isActive" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints foreignKeyName="user_id"/>
+            </column>
+        </createTable>
+<!--        <addForeignKeyConstraint baseTableName="person" baseColumnNames="id"-->
+<!--                                 constraintName="requisition_person_id_person_id"-->
+<!--                                 referencedTableName="requisitions" referencedColumnNames="id"/>-->
+    </changeSet>
+</databaseChangeLog>
