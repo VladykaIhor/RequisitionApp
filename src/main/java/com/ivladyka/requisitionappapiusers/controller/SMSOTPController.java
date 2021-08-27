@@ -2,26 +2,32 @@ package com.ivladyka.requisitionappapiusers.controller;
 
 import com.ivladyka.requisitionappapiusers.service.SmsCodeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
 public class SMSOTPController {
-
+    public SmsCodeService smsCodeService;
     @Autowired
-    public SmsCodeService otpService;
+    public SMSOTPController(SmsCodeService smsCodeService) {
+        this.smsCodeService = smsCodeService;
+    }
 
     @PostMapping("/otp")
-    public String generateOtp(){
+    public Authentication validateOtpInput(@RequestBody String code){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getName();
-        int otp = otpService.generateOTP(username);
-        System.out.println("OTP : "+ otp);
-        return String.valueOf(otp);
+        auth.getCredentials();
+        if (code.equals(String.valueOf(smsCodeService.getOTP(auth.getPrincipal().toString())))) {
+            auth.setAuthenticated(true);
+            throw new BadCredentialsException("Invalid verification code");
+        } else {
+            auth.setAuthenticated(true);
+            return auth;
+        }
     }
 }

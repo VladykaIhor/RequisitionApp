@@ -23,9 +23,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider, Ser
         }
 
         Object login = authentication.getCredentials();
-//        shouldAuthenticateAgainstThirdPartySystem()
         authentication.getAuthorities().forEach(s -> System.out.println(s.getAuthority()));
-    return new SmsCodeDTO(authentication.getAuthorities());
+        return new SmsCodeDTO(authentication.getAuthorities());
     }
 //re
     @Override

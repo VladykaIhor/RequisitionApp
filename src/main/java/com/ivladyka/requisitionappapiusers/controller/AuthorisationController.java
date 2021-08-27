@@ -11,25 +11,29 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
 @RestController
 public class AuthorisationController implements AuthenticationProvider {
 
-    public SmsCodeService otpService;
+
+    public SmsCodeService smsCodeService;
     @Autowired
-    public AuthorisationController(SmsCodeService otpService) {
-        this.otpService = otpService;
+    public AuthorisationController(SmsCodeService smsCodeService ) {
+        this.smsCodeService = smsCodeService;
     }
 
-    @CrossOrigin
     @PostMapping("/login")
     public ResponseEntity<User> login(@RequestBody User user) {
         SecurityContext securityContext = SecurityContextHolder.getContext();
-        securityContext.getAuthentication();
-        otpService.generateOTP(user.getPhoneNumber());
+        Authentication authentication = securityContext.getAuthentication();
+        authentication.setAuthenticated(false);
+        securityContext.setAuthentication(authentication);
+        SmsCodeDTO smsCodeDTO = new SmsCodeDTO(authenticate(authentication).getAuthorities());
+        smsCodeDTO.setCode(String.valueOf(smsCodeService.generateOTP(user.getPhoneNumber())));
+//        send otp via sms service to user.getPhoneNumber();
         System.out.println("OTP : " + user.getOneTimePassword());
         return ResponseEntity.ok(user);
     }
@@ -37,12 +41,9 @@ public class AuthorisationController implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         SmsCodeDTO smsCodeDTO = new SmsCodeDTO(authentication.getAuthorities());
-        System.out.println(smsCodeDTO.getPrincipal());
-        System.out.println(smsCodeDTO.getCredentials());
-    //        if (!user.getPassword().equals(password)) {
-    //            throw new BadCredentialsException("Bad Credentials");
-    //        }
-        return null;
+        //        if (!user.getPassword().equals(password)) {
+        //            throw new BadCredentialsException("Bad Credentials");
+        return authentication;
     }
 
     @Override

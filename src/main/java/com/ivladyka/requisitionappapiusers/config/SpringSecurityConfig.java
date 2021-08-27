@@ -32,6 +32,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests().anyRequest().permitAll()
                 .and()
                 .formLogin().loginPage("http://localhost:4200/home").permitAll()
+//                        .and().formLogin().loginPage("http://localhost:4200/api").permitAll()
                 .defaultSuccessUrl("http://localhost:8082/users/status/check");
     }
 
