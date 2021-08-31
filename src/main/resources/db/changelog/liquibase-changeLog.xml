@@ -21,13 +21,24 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
             <column name="phone_number" type="VARCHAR(255)">
                 <constraints nullable="false" unique="true"/>
             </column>
-            <column name="code_id" type="VARCHAR(255)">
-                <constraints nullable="false" unique="true"/>
-            </column>
             <column name="requisitionsList" type="VARCHAR(255)">
                 <!--          <constraints nullable="false"/>-->
             </column>
+            <column name="role" type ="VARCHAR(255)"/>
         </createTable>
+
+<!--        <createTable tableName="roles">-->
+<!--            <column autoIncrement="true" name="id" type="BIGINT">-->
+<!--                <constraints primaryKey="true"/>-->
+<!--            </column>-->
+<!--            <column name="name" type="VARCHAR(255)">-->
+<!--                <constraints nullable="false" unique="true"/>-->
+<!--            </column>-->
+<!--            <column> name="users" type ="VARCHAR(255)" >-->
+<!--                <constraints foreignKeyName="user_id"/>-->
+<!--            </column>-->
+<!--        </createTable>-->
+
         <createTable tableName="SmsCode">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -43,6 +54,8 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
                 <constraints foreignKeyName="user_id"/>
             </column>
         </createTable>
+
+
 <!--        <addForeignKeyConstraint baseTableName="person" baseColumnNames="id"-->
 <!--                                 constraintName="requisition_person_id_person_id"-->
 <!--                                 referencedTableName="requisitions" referencedColumnNames="id"/>-->

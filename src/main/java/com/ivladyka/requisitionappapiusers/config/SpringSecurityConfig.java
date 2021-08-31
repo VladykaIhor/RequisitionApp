@@ -29,6 +29,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
                 http.cors().and().csrf().disable()
+                        .authenticationProvider(auththenticationProvider)
                 .authorizeRequests().anyRequest().permitAll()
                 .and()
                 .formLogin().loginPage("http://localhost:4200/home").permitAll()

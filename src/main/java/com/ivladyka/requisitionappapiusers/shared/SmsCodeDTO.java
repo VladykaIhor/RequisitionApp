@@ -2,13 +2,12 @@ package com.ivladyka.requisitionappapiusers.shared;
 
 import com.ivladyka.requisitionappapiusers.model.User;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
 
-import java.util.Collection;
 import java.util.Date;
 
 public class SmsCodeDTO extends AbstractAuthenticationToken {
     private String code;
+    private String phoneNumber;
     private boolean isActive;
     private Date createdAt;
     private User user;
@@ -20,8 +19,30 @@ public class SmsCodeDTO extends AbstractAuthenticationToken {
      * @param authorities the collection of <tt>GrantedAuthority</tt>s for the principal
      *                    represented by this authentication object.
      */
-    public SmsCodeDTO(Collection<? extends GrantedAuthority> authorities) {
-        super(authorities);
+
+    public SmsCodeDTO(String phoneNumber, String otp) {
+        super(null);
+        this.phoneNumber = phoneNumber;
+        this.code = otp;
+        this.setAuthenticated(false);
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    @Override
+    public boolean isAuthenticated() {
+        return super.isAuthenticated();
+    }
+
+    @Override
+    public void setAuthenticated(boolean authenticated) {
+        super.setAuthenticated(authenticated);
     }
 
     @Override

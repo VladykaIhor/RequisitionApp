@@ -1,7 +1,6 @@
 package com.ivladyka.requisitionappapiusers.controller;
 
 import com.ivladyka.requisitionappapiusers.model.User;
-import com.ivladyka.requisitionappapiusers.repository.UserRepository;
 import com.ivladyka.requisitionappapiusers.service.UserService;
 import com.ivladyka.requisitionappapiusers.shared.UserDTO;
 import org.modelmapper.ModelMapper;
@@ -26,11 +25,11 @@ public class UsersController {
 
     @GetMapping("/status/check")
     public String status() {
-        return "Working on port: " +  environment.getProperty("local.server.port");
+        return "Working on port: " + environment.getProperty("local.server.port");
     }
 
     @PostMapping
-    public String createUser(@RequestBody User user){
+    public String createUser(@RequestBody User user) {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STANDARD);
         UserDTO userEntity = modelMapper.map(user, UserDTO.class);

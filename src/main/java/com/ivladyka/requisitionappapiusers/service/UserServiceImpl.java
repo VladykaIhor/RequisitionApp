@@ -26,14 +26,33 @@ public class UserServiceImpl implements UserService {
         this.smsCodeService = smsCodeService;
     }
 
+    //register
     @Override
     public UserDTO createUser(UserDTO user) {
         ModelMapper modelMapper = new ModelMapper();
-//        user.setOneTimePassword(smsCodeService.generateAndSaveSmsCode());
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STANDARD);
         User userEntity = modelMapper.map(user, User.class);
         userRepository.save(userEntity);
         return user;
+    }
+
+    @Override
+    public UserDTO getUserByPhoneNumber(String phoneNumber) {
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STANDARD);
+        User userByPhoneNumber = userRepository.findUserByPhoneNumber(phoneNumber);
+        if (userByPhoneNumber == null) {
+            return null;
+        } else {
+            return modelMapper.map(userByPhoneNumber, UserDTO.class);
+        }
+    }
+
+    @Override
+    public boolean isUserAlreadyPresent(User user) {
+        if (userRepository.findUserByPhoneNumber(user.getPhoneNumber()) == null) {
+            return false;
+        } else return true;
     }
 
     @Override
@@ -43,4 +62,5 @@ public class UserServiceImpl implements UserService {
         UserDetails userDetails = (UserDetails) new org.springframework.security.core.userdetails.User(phoneNumber, null, Arrays.asList(authority));
         return userDetails;
     }
+
 }

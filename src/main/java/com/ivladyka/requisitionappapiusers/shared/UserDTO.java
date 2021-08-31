@@ -3,6 +3,7 @@ package com.ivladyka.requisitionappapiusers.shared;
 import com.ivladyka.requisitionappapiusers.model.SmsCode;
 
 public class UserDTO extends BaseDTO {
+
     private String phoneNumber;
 
     public String getPhoneNumber() {

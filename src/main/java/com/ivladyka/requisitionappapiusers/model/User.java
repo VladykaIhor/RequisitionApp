@@ -1,34 +1,28 @@
 package com.ivladyka.requisitionappapiusers.model;
 
 
-import com.fasterxml.jackson.databind.ser.Serializers;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Collection;
+import java.util.List;
 
 //User request model
 @Entity
 @Table(name = "users")
+@AllArgsConstructor
 public class User extends BaseModel implements UserDetails {
 
-    @Size(min = 10, max = 13)
+    @Size(min = 5, max = 15, message = "Phone number size constraints violated")
     @NotNull(message = "Phone number cannot be empty")
     private String phoneNumber;
-    private int oneTimePassword;
-//    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-//    @PrimaryKeyJoinColumn
-//    private SmsCode oneTimePassword;
 
-    public int getOneTimePassword() {
-        return oneTimePassword;
-    }
-
-    public void setOneTimePassword(int oneTimePassword) {
-        this.oneTimePassword = oneTimePassword;
+    public User() {
     }
 
     public String getPhoneNumber() {
@@ -41,6 +35,15 @@ public class User extends BaseModel implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+//        if ()
+        return null; //getGrantedAuthorities(List<String> privileges) ;
+    }
+
+    private List<GrantedAuthority> getGrantedAuthorities(List<String> privileges) {
+//        List<GrantedAuthority> authorities = new ArrayList<>();
+//        for (String privilege : privileges) {
+//            authorities.add(new SimpleGrantedAuthority(privilege));
+//        }
         return null;
     }
 
@@ -73,12 +76,4 @@ public class User extends BaseModel implements UserDetails {
     public boolean isEnabled() {
         return false;
     }
-
-//    public SmsCode getOneTimePassword() {
-//        return oneTimePassword;
-//    }
-
-//    public void setOneTimePassword(SmsCode oneTimePassword) {
-//        this.oneTimePassword = oneTimePassword;
-//    }
 }
