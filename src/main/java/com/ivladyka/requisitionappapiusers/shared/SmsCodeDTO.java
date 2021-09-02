@@ -2,7 +2,9 @@ package com.ivladyka.requisitionappapiusers.shared;
 
 import com.ivladyka.requisitionappapiusers.model.User;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 
+import java.util.Collection;
 import java.util.Date;
 
 public class SmsCodeDTO extends AbstractAuthenticationToken {
@@ -20,7 +22,7 @@ public class SmsCodeDTO extends AbstractAuthenticationToken {
      *                    represented by this authentication object.
      */
 
-    public SmsCodeDTO(String phoneNumber, String otp) {
+    public SmsCodeDTO(String phoneNumber, String otp, Collection<? extends GrantedAuthority> authorities) {
         super(null);
         this.phoneNumber = phoneNumber;
         this.code = otp;

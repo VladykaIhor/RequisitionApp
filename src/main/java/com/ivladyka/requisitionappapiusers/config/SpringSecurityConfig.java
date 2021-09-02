@@ -29,11 +29,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
                 http.cors().and().csrf().disable()
-                        .authenticationProvider(auththenticationProvider)
+                        .authorizeRequests().antMatchers("reqI").hasAuthority("ROLE_USER").and()
                 .authorizeRequests().anyRequest().permitAll()
                 .and()
                 .formLogin().loginPage("http://localhost:4200/home").permitAll()
-//                        .and().formLogin().loginPage("http://localhost:4200/api").permitAll()
                 .defaultSuccessUrl("http://localhost:8082/users/status/check");
     }
 
