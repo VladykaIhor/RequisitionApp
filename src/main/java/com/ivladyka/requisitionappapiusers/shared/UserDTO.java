@@ -1,16 +1,11 @@
 package com.ivladyka.requisitionappapiusers.shared;
 
-import com.ivladyka.requisitionappapiusers.model.SmsCode;
+import lombok.Data;
 
-public class UserDTO extends BaseDTO {
+import java.io.Serializable;
+
+@Data
+public class UserDTO implements Serializable {
 
     private String phoneNumber;
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
 }

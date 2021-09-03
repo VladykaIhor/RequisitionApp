@@ -1,10 +1,17 @@
 package com.ivladyka.requisitionappapiusers.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class PhoneNumber {
     @Id
     private Long id;
@@ -13,28 +20,4 @@ public class PhoneNumber {
 
     @NotEmpty
     private String locale;
-
-    public PhoneNumber() {
-    }
-
-    public PhoneNumber(String value, String locale) {
-        this.value = value;
-        this.locale = locale;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public String getLocale() {
-        return locale;
-    }
-
-    public void setLocale(String locale) {
-        this.locale = locale;
-    }
 }

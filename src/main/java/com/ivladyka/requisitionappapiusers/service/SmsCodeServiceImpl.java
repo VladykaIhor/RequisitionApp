@@ -10,10 +10,11 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 public class SmsCodeServiceImpl implements SmsCodeService {
+
     //cache based on phone number and OTP MAX 8
     private static final Integer EXPIRE_MINS = 5;
 
-    private LoadingCache<String, Integer> otpCache;
+    private final LoadingCache<String, Integer> otpCache;
 
     public SmsCodeServiceImpl() {
         super();

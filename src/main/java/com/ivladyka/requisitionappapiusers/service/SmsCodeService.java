@@ -10,5 +10,4 @@ public interface SmsCodeService {
     int generateOTP(String key);
 
     int getOTP(String key);
-
 }

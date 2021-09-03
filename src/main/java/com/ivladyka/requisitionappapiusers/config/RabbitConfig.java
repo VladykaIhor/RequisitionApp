@@ -3,13 +3,10 @@ package com.ivladyka.requisitionappapiusers.config;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.FanoutExchange;
-
 import org.springframework.amqp.core.Queue;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.validation.Valid;
 
 @Configuration
 public class RabbitConfig {
@@ -21,7 +18,7 @@ public class RabbitConfig {
     private String queueName;
 
     @Bean
-    Queue queue(){
+    Queue queue() {
         return new Queue(queueName, true);
     }
 

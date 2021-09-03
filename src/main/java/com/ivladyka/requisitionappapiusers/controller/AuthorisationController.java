@@ -1,6 +1,5 @@
 package com.ivladyka.requisitionappapiusers.controller;
 
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ivladyka.requisitionappapiusers.model.User;
 import com.ivladyka.requisitionappapiusers.service.SmsCodeService;
@@ -29,10 +28,10 @@ public class AuthorisationController {
     public QueueProducer queueProducer;
 
     @Autowired
-    public AuthorisationController(UserService userService,
-                                   SmsCodeService smsCodeService,
-                                   CustomAuthenticationProvider customAuthenticationProvider,
-                                   QueueProducer queueProducer) {
+    public AuthorisationController(final UserService userService,
+                                   final SmsCodeService smsCodeService,
+                                   final CustomAuthenticationProvider customAuthenticationProvider,
+                                   final QueueProducer queueProducer) {
         this.queueProducer = queueProducer;
         this.userService = userService;
         this.smsCodeService = smsCodeService;

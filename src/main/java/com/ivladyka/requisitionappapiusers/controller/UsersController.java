@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/users")
 public class UsersController {
 
-    @Autowired
     private Environment environment;
 
     private final UserService userService;
 
     @Autowired
-    public UsersController(UserService userService) {
+    public UsersController(final UserService userService, final Environment environment) {
+        this.environment = environment;
         this.userService = userService;
     }
 

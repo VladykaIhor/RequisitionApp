@@ -9,10 +9,6 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 public class RequisitionAppApiUsersApplication {
 
-    static final String topicExchangeName = "spring-boot-exchange";
-
-    public static final String queueName = "spring-boot";
-
     public static void main(String[] args) {
         SpringApplication.run(RequisitionAppApiUsersApplication.class, args);
     }
