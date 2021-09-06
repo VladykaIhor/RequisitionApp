@@ -1,16 +1,14 @@
 <databaseChangeLog
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
-http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
-http://www.liquibase.org/xml/ns/dbchangelog
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
     <changeSet author="IVladyka" id="default-init">
         <preConditions onFail="WARN">
             <dbms type="mysql"/>
         </preConditions>
+
         <createTable tableName="users">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -19,22 +17,54 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
                 <constraints nullable="false" unique="true"/>
             </column>
             <column name="requisitionsList" type="VARCHAR(255)"/>
-            <column name="role" type ="VARCHAR(255)"/>
+            <column name="role" type="VARCHAR(255)"/>
         </createTable>
 
-        <createTable tableName="SmsCode">
+        <createTable tableName="requisition">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="code" type="VARCHAR(255)">
-                <constraints nullable="false" unique="true"/>
-            </column>
-            <column name="createdAt" type="datetime"/>
-            <column name="isActive" type="boolean" >
+            <column name="user_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="user_id" type="BIGINT">
-                <constraints foreignKeyName="user_id"/>
+            <column name="nameInfo_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="socialInfo_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="incomeAndEmailInfo_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="NameInfo">
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fathers_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="SocialInfo">
+            <column name="passport_number" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="marriage_status" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="IncomeAndEmailInfo">
+            <column name="yearly_income" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
             </column>
         </createTable>
 

@@ -2,7 +2,6 @@ package com.ivladyka.requisitionappapiusers.util;
 
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
-import com.ivladyka.requisitionappapiusers.model.Phone;
 import com.ivladyka.requisitionappapiusers.model.PhoneNumber;
 
 import javax.validation.ConstraintValidator;

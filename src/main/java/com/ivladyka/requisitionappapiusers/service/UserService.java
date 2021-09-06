@@ -10,5 +10,5 @@ public interface UserService extends UserDetailsService {
 
     UserDTO getUserByPhoneNumber(String phoneNumber);
 
-    public boolean isUserAlreadyPresent(User user);
+    public boolean isUserAlreadyRegistered(User user);
 }

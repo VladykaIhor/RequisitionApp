@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean isUserAlreadyPresent(User user) {
+    public boolean isUserAlreadyRegistered(User user) {
         if (userRepository.findUserByPhoneNumber(user.getPhoneNumber()) == null) {
             return false;
         } else return true;

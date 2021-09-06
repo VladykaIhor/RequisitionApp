@@ -1,6 +1,5 @@
 package com.ivladyka.requisitionappapiusers.controller;
 
-import com.ivladyka.requisitionappapiusers.model.User;
 import com.ivladyka.requisitionappapiusers.service.UserService;
 import com.ivladyka.requisitionappapiusers.shared.UserDTO;
 import org.modelmapper.ModelMapper;
@@ -29,7 +28,7 @@ public class UsersController {
     }
 
     @PostMapping
-    public String createUser(@RequestBody User user) {
+    public String createUser(@RequestBody UserDTO user) {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STANDARD);
         UserDTO userEntity = modelMapper.map(user, UserDTO.class);
