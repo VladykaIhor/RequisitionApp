@@ -17,12 +17,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private CustomAuthenticationProvider auththenticationProvider;
-    private UserService userService;
+    private final CustomAuthenticationProvider authenticationProvider;
+    private final UserService userService;
 
     @Autowired
     public SpringSecurityConfig(UserService userService, CustomAuthenticationProvider authenticationProvider) {
-        this.auththenticationProvider = authenticationProvider;
+        this.authenticationProvider = authenticationProvider;
         this.userService = userService;
     }
 
@@ -38,7 +38,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder http) throws Exception {
-        http.authenticationProvider(auththenticationProvider);
+        http.authenticationProvider(authenticationProvider);
     }
 
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {

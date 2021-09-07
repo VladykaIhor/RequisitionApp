@@ -1,7 +1,6 @@
 package com.ivladyka.requisitionappapiusers.service;
 
 import com.ivladyka.requisitionappapiusers.model.SmsCode;
-import com.ivladyka.requisitionappapiusers.shared.SmsCodeDTO;
 
 public interface SmsCodeService {
 
@@ -10,4 +9,6 @@ public interface SmsCodeService {
     int generateOTP(String key);
 
     int getOTP(String key);
+
+    boolean validateOTP(SmsCode smsCode);
 }

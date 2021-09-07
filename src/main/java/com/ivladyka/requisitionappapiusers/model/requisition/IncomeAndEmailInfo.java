@@ -6,17 +6,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 @Data
+@Table(name = "income_and_email_info")
 @NoArgsConstructor
 @AllArgsConstructor
 public class IncomeAndEmailInfo extends BaseModel {
 
-    @OneToOne(mappedBy = "id")
-    private Requisition id;
+    @OneToOne(cascade = CascadeType.ALL, targetEntity = Requisition.class)
+    private Long requisitionId;
 
     private Long yearlyIncome;
 

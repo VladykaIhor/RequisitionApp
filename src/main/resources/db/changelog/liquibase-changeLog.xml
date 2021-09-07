@@ -27,18 +27,16 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
             <column name="user_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="nameInfo_id" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="socialInfo_id" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="incomeAndEmailInfo_id" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
         </createTable>
 
-        <createTable tableName="NameInfo">
+        <createTable tableName="name_info">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="requisition_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_name_info_requisition_id"
+                             referencedTableName="requisition" referencedColumnNames="id"/>
+            </column>
             <column name="name" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
@@ -50,16 +48,30 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
             </column>
         </createTable>
 
-        <createTable tableName="SocialInfo">
+        <createTable tableName="social_info">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="requisition_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_social_info_requisition_id"
+                             referencedTableName="requisition" referencedColumnNames="id"/>
+            </column>
             <column name="passport_number" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="marriage_status" type="VARCHAR(255)">
+            <column name="marriage_status" type="boolean">
                 <constraints nullable="false"/>
             </column>
         </createTable>
 
-        <createTable tableName="IncomeAndEmailInfo">
+        <createTable tableName="income_and_email_info">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="requisition_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_income_email_requisition_id"
+                             referencedTableName="requisition" referencedColumnNames="id"/>
+            </column>
             <column name="yearly_income" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
@@ -67,6 +79,7 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
                 <constraints nullable="false"/>
             </column>
         </createTable>
+
 
     </changeSet>
 </databaseChangeLog>

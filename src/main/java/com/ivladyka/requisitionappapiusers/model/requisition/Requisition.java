@@ -6,12 +6,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 @Data
+@Table(name = "requisition")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Requisition extends BaseModel {
@@ -20,13 +19,4 @@ public class Requisition extends BaseModel {
     private User user;
 
     private String name;
-
-    @OneToOne
-    private NameInfo nameInfo;
-
-    @OneToOne
-    private SocialInfo socialInfo;
-
-    @OneToOne
-    private IncomeAndEmailInfo incomeAndEmailInfo;
 }

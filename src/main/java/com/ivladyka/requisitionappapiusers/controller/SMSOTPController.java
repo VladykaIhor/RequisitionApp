@@ -33,14 +33,7 @@ public class SMSOTPController {
 
     @PostMapping("/otp")
     public ResponseEntity<SmsCodeDTO> validateOtpInput(@RequestBody SmsCode smsCode) {
-        SmsCodeDTO auth = (SmsCodeDTO) SecurityContextHolder.getContext().getAuthentication();
-        int cachedOTP = smsCodeService.getOTP(auth.getPhoneNumber());
-        if (String.valueOf(cachedOTP).equals(smsCode.getCode())) {
-            smsCodeService.clearOTP(auth.getPhoneNumber());
-            List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>
-                    (Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")));
-            SmsCodeDTO smsCodeDTO = new SmsCodeDTO(auth.getPhoneNumber(), auth.getCode(), grantedAuthorities);
-            SecurityContextHolder.getContext().setAuthentication(smsCodeDTO);
+        if (smsCodeService.validateOTP(smsCode)) {
             return ResponseEntity.status(HttpStatus.ACCEPTED).build();
         } else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();

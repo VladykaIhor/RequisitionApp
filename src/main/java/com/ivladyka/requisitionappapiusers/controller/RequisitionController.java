@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController("requisition")
+@RestController
+@RequestMapping("/requisition")
 public class RequisitionController {
 
     private final NameInfoService nameInfoService;
@@ -26,7 +28,7 @@ public class RequisitionController {
         Requisition requisition = new Requisition();
         requisition.setUser(currentUser);
         NameInfo info = nameInfoService.saveNameInfo(nameInfo);
-        requisition.setNameInfo(info);
+//        requisition.setNameInfo(info);
         return null;
     }
 
