@@ -24,9 +24,9 @@ public class RequisitionController {
 
     @PostMapping("/name-info")
     private String fillNameInfo(@RequestBody NameInfo nameInfo) {
-        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Requisition requisition = new Requisition();
-        requisition.setUser(currentUser);
+//        requisition.setUser(currentUser);
         NameInfo info = nameInfoService.saveNameInfo(nameInfo);
 //        requisition.setNameInfo(info);
         return null;

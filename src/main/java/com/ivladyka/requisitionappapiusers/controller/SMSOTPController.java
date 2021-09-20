@@ -22,6 +22,8 @@ import java.util.List;
 @RestController
 public class SMSOTPController {
 
+    public final static String SESSION_KEY_SMS_CODE = "SESSION_KEY_SMS_CODE";
+
     private SmsCodeService smsCodeService;
     private CustomAuthenticationProvider customAuthenticationProvider;
 
@@ -29,6 +31,11 @@ public class SMSOTPController {
     public SMSOTPController(CustomAuthenticationProvider customAuthenticationProvider, SmsCodeService smsCodeService) {
         this.smsCodeService = smsCodeService;
         this.customAuthenticationProvider = customAuthenticationProvider;
+    }
+
+    @PostMapping("/sendOtp")
+    public ResponseEntity<SmsCodeDTO> sentOtpVerification(@RequestBody SmsCodeDTO smsCodeDTO) {
+        return ResponseEntity.ok(smsCodeService.sendOtp(smsCodeDTO));
     }
 
     @PostMapping("/otp")

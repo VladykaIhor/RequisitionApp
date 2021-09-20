@@ -8,7 +8,7 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
-    NameInfoMapper MAPPER = Mappers.getMapper(NameInfoMapper.class);
+    UserMapper MAPPER = Mappers.getMapper(UserMapper.class);
 
     User userDtoToUser(UserDTO userDTO);
 

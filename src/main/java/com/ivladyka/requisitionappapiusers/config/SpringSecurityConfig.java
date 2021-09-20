@@ -1,7 +1,6 @@
 package com.ivladyka.requisitionappapiusers.config;
 
 
-import com.ivladyka.requisitionappapiusers.service.UserService;
 import com.ivladyka.requisitionappapiusers.util.CustomAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -17,34 +16,27 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final CustomAuthenticationProvider authenticationProvider;
-    private final UserService userService;
+    private final CustomAuthenticationProvider customAuthenticationProvider;
 
     @Autowired
-    public SpringSecurityConfig(UserService userService, CustomAuthenticationProvider authenticationProvider) {
-        this.authenticationProvider = authenticationProvider;
-        this.userService = userService;
+    public SpringSecurityConfig(CustomAuthenticationProvider customAuthenticationProvider) {
+        this.customAuthenticationProvider = customAuthenticationProvider;
     }
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-                http.cors().and().csrf().disable()
-                        .authorizeRequests().antMatchers("reqI").hasAuthority("ROLE_USER").and()
-                .authorizeRequests().anyRequest().permitAll()
-                .and()
-                .formLogin().loginPage("http://localhost:4200/home").permitAll()
-                .defaultSuccessUrl("http://localhost:8082/users/status/check");
+                http.cors().and().csrf().disable();
+                http.antMatcher("/requisition/**").authorizeRequests().anyRequest().authenticated().and().
+                        formLogin().loginPage("/login").permitAll().and();
     }
 
+    @Autowired
     @Override
-    protected void configure(AuthenticationManagerBuilder http) throws Exception {
-        http.authenticationProvider(authenticationProvider);
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(customAuthenticationProvider);
     }
 
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        auth.userDetailsService(userService).passwordEncoder(passwordEncoder);
-    }
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

@@ -3,9 +3,7 @@ package com.ivladyka.requisitionappapiusers.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ivladyka.requisitionappapiusers.service.SmsCodeService;
 import com.ivladyka.requisitionappapiusers.service.UserService;
-import com.ivladyka.requisitionappapiusers.shared.UserDTO;
-import com.ivladyka.requisitionappapiusers.util.CustomAuthenticationProvider;
-import com.ivladyka.requisitionappapiusers.util.QueueProducer;
+import com.ivladyka.requisitionappapiusers.shared.SmsCodeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,8 +23,8 @@ public class AuthorisationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UserDTO> login(@RequestBody UserDTO user) throws JsonProcessingException {
-        userService.login(user);
-        return ResponseEntity.ok(user);
+    public ResponseEntity<SmsCodeDTO> login(@RequestBody SmsCodeDTO smsCodeDTO) throws JsonProcessingException {
+        userService.login(smsCodeDTO);
+        return ResponseEntity.ok().build();
     }
 }
